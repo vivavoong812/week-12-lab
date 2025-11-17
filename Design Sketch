@@ -6,7 +6,26 @@ line graph that shows bike usage over time at each station.
 
 Outline the high‑level steps, from data input to final results. Continue breaking down these steps until each piece is simple enough to be 
 contained in its own function.
+  1. Calculate the number of bike usage per hour and per day.
+  2. Simulate a day
+      a. simulate with exponential distribution using the estimated rates
+      b. thin data to generate accurate representation of trips
+  3. "Optimize" bike placement
+      a. using simualated data to determine number of bikes placed at each station
+  4. Display results
+      a. table
+      b. line graph
+  
+* estimation
+  description: create function that estimates the arrival rates for each station, day, and hour
+  inputs: 
+  outputs:
 
+* simulation
+  description: 
+  inputs: 
+  outputs:
+  
 List your functions. For each function include:
 
 Function name
@@ -21,4 +40,3 @@ Draw a function dependency diagram showing the dependence of functions on each o
 
 Refine by considering where you could minimize redundancy or update the inputs/outputs to improve your design.
 
-hello
