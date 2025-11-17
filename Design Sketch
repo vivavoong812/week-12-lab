@@ -1,8 +1,11 @@
 Part 1: Design Sketch
 
-Define the final output: What should the manager receive (e.g., a table of recommended bikes per station, an expected‑usage plot)?
+Final Output: 
+Our function will output a summary table containing the recommended number of bikes placed at each station. Additionally, we will create a
+line graph that shows bike usage over time at each station. 
 
-Outline the high‑level steps, from data input to final results. Continue breaking down these steps until each piece is simple enough to be contained in its own function.
+Outline the high‑level steps, from data input to final results. Continue breaking down these steps until each piece is simple enough to be 
+contained in its own function.
 
 List your functions. For each function include:
 
