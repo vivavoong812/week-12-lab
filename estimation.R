@@ -34,21 +34,6 @@ estimate_arrival_rates <- function(data) {
   hr_pts$change <- 0
   trips_long <- rbind(trips_long, hr_pts)
   
-  # find average availability 
-  alpha_hat <- trips_long %>%
-    group_by(station) %>%
-    filter(station != "R") %>%
-    arrange(time) %>% 
-    mutate(count = cumsum(change),
-           date = as_date(time)) %>%
-    group_by(station, hour, date) %>%
-    summarize(time_avail = 
-                sum(difftime(time, lag(time), units="hours")*(count > 0), 
-                  na.rm = TRUE)) %>%
-    summarize(avg_avail = mean(time_avail)) %>%
-    mutate(avg_avail = round(as.numeric(avg_avail), digits = 4)) %>%
-    ungroup()
-  
   # join the data and compute arrival rates
   mu_hat <- x_hat %>%
     left_join(alpha_hat, by = c("start_station" = "station", "hour")) %>%
