@@ -2,6 +2,14 @@
 #' @description estimates the bike arrival rate for each station
 #' @param data dataframe containing start_station, end_station, start_time, end_time, customer_type
 #' @output returns mu hat representing estimated arrival rate
+
+est_arr_rate <- function(data) {
+  mutate(hour = hour(start_time),
+        date = as_date(start_time)) %>%
+  filter(start_station != "R", end_station != "R") %>%
+  group_by(start_station, end_station, date, hour) %>%
+  
+
 estimate_arrival_rates <- function(data) {
   
   # compute the average number of trips per hour between each pair
