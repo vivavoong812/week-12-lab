@@ -1,5 +1,7 @@
 # Solution:
-#' NEED TO ADD DOCUMENTATION
+#' @description estimates the bike arrival rate for each station
+#' @param data dataframe containing start_station, end_station, start_time, end_time, customer_type
+#' @output returns mu hat representing estimated arrival rate
 estimate_arrival_rates <- function(data) {
   
   # compute the average number of trips per hour between each pair
