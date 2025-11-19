@@ -25,6 +25,16 @@ contained in its own function.
   description: 
   inputs: 
   outputs:
+
+*placement
+  description:
+  inputs:
+  outputs:
+
+*utils
+  description:
+  inputs: 
+  outputs: 
   
 List your functions. For each function include:
 
