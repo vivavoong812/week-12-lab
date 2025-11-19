@@ -24,11 +24,11 @@ contained in its own function.
 * simulation
   description: simulating trips per station with lambda
   inputs: start_station, end_station, hour, est_arr_rate
-  outputs: start_station, end_station, lambda max
+  outputs: start_station, end_station, est_arr_times
 
 *placement
   description: optimizing bike placement
-  inputs: start_station, end_station, lambda max
+  inputs: start_station, end_station, est_arr_times, max_bike
   outputs: start_station, end_station, num_bike
 
 *utils
