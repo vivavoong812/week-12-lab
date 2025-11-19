@@ -18,35 +18,27 @@ contained in its own function.
   
 * estimation
   description: create function that estimates the arrival rates for each station, day, and hour
-  inputs: 
-  outputs:
+  inputs: data frame w/ start_station, end_station, start_time, end_time, hour, day
+  outputs: start_station, end_station, hour, day, est_arr_rate
 
 * simulation
-  description: 
-  inputs: 
-  outputs:
+  description: simulating trips per station with lambda
+  inputs: start_station, end_station, hour, est_arr_rate
+  outputs: start_station, end_station, lambda max
 
 *placement
-  description:
-  inputs:
-  outputs:
+  description: optimizing bike placement
+  inputs: start_station, end_station, lambda max
+  outputs: start_station, end_station, num_bike
 
 *utils
   description:
   inputs: 
   outputs: 
   
-List your functions. For each function include:
-
-Function name
-
-Inputs (with data types)
-
-Outputs (with formats)
-
-Short description of its purpose
 
 Draw a function dependency diagram showing the dependence of functions on each other.
+  estimation --> simulation --> placement
 
 Refine by considering where you could minimize redundancy or update the inputs/outputs to improve your design.
 
