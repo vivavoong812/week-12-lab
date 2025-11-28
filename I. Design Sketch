@@ -29,16 +29,9 @@ contained in its own function.
 *placement
   description: optimizing bike placement
   inputs: start_station, end_station, est_arr_times, max_bike
-  outputs: start_station, end_station, num_bike
-
-*utils
-  description:
-  inputs: 
-  outputs: 
-  
+  outputs: start_station, end_station, num_bike  
 
 Draw a function dependency diagram showing the dependence of functions on each other.
   estimation --> simulation --> placement
 
 Refine by considering where you could minimize redundancy or update the inputs/outputs to improve your design.
-
