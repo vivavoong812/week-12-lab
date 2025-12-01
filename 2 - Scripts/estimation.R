@@ -1,5 +1,5 @@
 # Solution:
-#' @description estimates the bike arrival rate for each station
+#' @description estimates the bike arrival rate for each station in a given dataframe
 #' @param data dataframe containing start_station, end_station, start_time, end_time, customer_type
 #' @output returns dataframe containing start_station, end_station, hour, avg_trips, avg_avail, and mu_hat
 
@@ -39,6 +39,21 @@ estimate_arrival_rates <- function(data) {
            hour = hour(time))
   hr_pts$change <- 0
   trips_long <- rbind(trips_long, hr_pts)
+
+# find average availability 
+  alpha_hat <- trips_long %>%
+    group_by(station) %>%
+    filter(station != "R") %>%
+    arrange(time) %>% 
+    mutate(count = cumsum(change),
+           date = as_date(time)) %>%
+    group_by(station, hour, date) %>%
+    summarize(time_avail = 
+                sum(difftime(time, lag(time), units="hours")*(count > 0), 
+                    na.rm = TRUE)) %>%
+    summarize(avg_avail = mean(time_avail)) %>%
+    mutate(avg_avail = round(as.numeric(avg_avail), digits = 4)) %>%
+    ungroup()
   
   # join the data and compute arrival rates
   mu_hat <- x_hat %>%
@@ -47,12 +62,3 @@ estimate_arrival_rates <- function(data) {
   
   return(mu_hat)
 }
-
-# Load the sample dataset
-bike_data <- read_csv("../Data/sample_bike.csv")
-
-# Estimate arrival rates
-arrival_rates <- estimate_arrival_rates(bike_data)
-
-# View the results
-print(arrival_rates, n = 10)
