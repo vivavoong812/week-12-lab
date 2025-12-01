@@ -1,6 +1,7 @@
 source(estimation.R)
 
-sim_trips <-
+arrival_rates$start_station <- as.numeric(arrival_rates$start_station)
+arrival_rates$end_station   <- as.numeric(arrival_rates$end_station)
 
 simulate_demand <- function(data = arrival_rates, max_time = 24){
   combinations <- arrival_rates %>% distinct(start_station, end_station)
@@ -8,7 +9,7 @@ simulate_demand <- function(data = arrival_rates, max_time = 24){
   lambda_max <- max(arrival_rates$mu_hat, na.rm = TRUE) # lamda_max = 8
   lambdas <- data$mu_hat
   
-  for(i in 1:length(combinations)){
+  for(i in 1:nrow(combinations)){
     start <- combinations$start_station[i]
     end <- combinations$end_station[i]
     pair <- arrival_rates %>% 
@@ -21,8 +22,11 @@ simulate_demand <- function(data = arrival_rates, max_time = 24){
     while (current_time < max_time) {
       next_arrival <- current_time + rexp(1, rate = lambda_max)
       hour <- floor(next_arrival)
+
+      if (hour >= max_time) break
       
       mu <- pair$mu_hat[pair$hour == hour]
+      if (length(mu) == 0) break
       
       if (runif(1) < lambdas[i] / lambda_max) {
         arrivals <- c(arrivals, next_arrival)
@@ -30,21 +34,17 @@ simulate_demand <- function(data = arrival_rates, max_time = 24){
       current_time <- next_arrival
     }
     if (length(arrivals) == 0) {
-      all_results[[i]] <- data.frame(
+      results[[i]] <- data.frame(
         start_station = numeric(0),
         end_station   = numeric(0),
         time          = numeric(0)
       )
       next
-    }    
-    all_results[[i]] <- data.frame(
-      start_station = start_i,
-      end_station   = end_i,
-      time          = arrivals
+    }
     results[[i]] <- data.frame(
-      start_station = start, 
-      end_station = end, 
-      time = arrivals
+      start_station = as.numeric(start), 
+      end_station = as.numeric(end), 
+      time = as.numeric(arrivals)
       )
   }
   return(bind_rows(results))
