@@ -1,16 +1,14 @@
 # Solution:
 #' @description estimates the bike arrival rate for each station
 #' @param data dataframe containing start_station, end_station, start_time, end_time, customer_type
-#' @output returns mu hat representing estimated arrival rate
-
-est_arr_rate <- function(data) {
-  mutate(hour = hour(start_time),
-        date = as_date(start_time)) %>%
-  filter(start_station != "R", end_station != "R") %>%
-  group_by(start_station, end_station, date, hour) %>%
-  
+#' @output returns dataframe containing start_station, end_station, hour, avg_trips, avg_avail, and mu_hat
 
 estimate_arrival_rates <- function(data) {
+  data <- data %>%
+    mutate(
+      start_time = as.POSIXct(start_time, format = "%Y-%m-%d %H:%M:%S"),
+      end_time   = as.POSIXct(end_time,   format = "%Y-%m-%d %H:%M:%S")
+    )
   
   # compute the average number of trips per hour between each pair
   x_hat <- data %>%
