@@ -29,13 +29,25 @@ simulate_demand <- function(data = arrival_rates, max_time = 24){
       }
       current_time <- next_arrival
     }
+    if (length(arrivals) == 0) {
+      all_results[[i]] <- data.frame(
+        start_station = numeric(0),
+        end_station   = numeric(0),
+        time          = numeric(0)
+      )
+      next
+    }    
+    all_results[[i]] <- data.frame(
+      start_station = start_i,
+      end_station   = end_i,
+      time          = arrivals
     results[[i]] <- data.frame(
       start_station = start, 
       end_station = end, 
       time = arrivals
       )
   }
-  return(bind_rows(results)
+  return(bind_rows(results))
 }
 
 simulate_trips <- function()
