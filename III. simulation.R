@@ -16,6 +16,7 @@ simulate_demand <- function(data = arrival_rates, max_time = 24){
       }
       current_time <- next_arrival
     }
+    # currently only returns arrivals for one set of start and end station, need to insert line here to get arrivals for all combinations
   }
   return(arrivals)
 }
