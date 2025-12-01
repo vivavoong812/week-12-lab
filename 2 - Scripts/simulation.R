@@ -50,8 +50,19 @@ simulate_demand <- function(data = arrival_rates, max_time = 24){
   return(bind_rows(results))
 }
 
-simulate_trips <- function()
-
 set.seed(123)
 arrival_results <- simulate_demand(arrival_rates, 24)
 print(arrival_results)
+
+
+sim_trips_all <- function(arrival_rates) {
+  set.seed(123)
+  
+  pairs <- arrival_rates %>%
+    group_by(start_station, end_station) %>%
+    group_split()
+  
+  trips_list <- lapply(pairs, sim_trip_one)
+  bind_rows(trips_list)
+}
+
