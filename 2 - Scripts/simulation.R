@@ -1,59 +1,49 @@
-source(estimation.R)
 
-arrival_rates$start_station <- as.numeric(arrival_rates$start_station)
-arrival_rates$end_station   <- as.numeric(arrival_rates$end_station)
 
-simulate_demand <- function(data = arrival_rates, max_time = 24){
-  combinations <- arrival_rates %>% distinct(start_station, end_station)
-  results <- list()
+sim_trip_one <- function(arrival_rates) {
+
+  # keeping relevant columns
+  arrival_rates <- arrival_rates %>%
+    select(start_station, end_station, hour, mu_hat) %>%
+    filter(!is.na(mu_hat), mu_hat > 0)
+
+  # in case pair has no positive rate
+  if (nrow(arrival_rates) == 0) return(NULL)
+
+  # finding lambda max
   lambda_max <- max(arrival_rates$mu_hat, na.rm = TRUE) # lamda_max = 8
-  lambdas <- data$mu_hat
-  
-  for(i in 1:nrow(combinations)){
-    start <- combinations$start_station[i]
-    end <- combinations$end_station[i]
-    pair <- arrival_rates %>% 
-    filter(start_station == start, 
-           end_station == end)
-    
-    current_time <- 0
-    arrivals <- c()
-    
-    while (current_time < max_time) {
-      next_arrival <- current_time + rexp(1, rate = lambda_max)
-      hour <- floor(next_arrival)
 
-      if (hour >= max_time) break
-      
-      mu <- pair$mu_hat[pair$hour == hour]
-      if (length(mu) == 0) break
-      
-      if (runif(1) < lambdas[i] / lambda_max) {
-        arrivals <- c(arrivals, next_arrival)
-      }
-      current_time <- next_arrival
+  time <- 0
+  arrivals <- c()
+
+  while (current_time < 24) {
+    rate <- rexp(1,1 rate = lambda_max)
+    time <- time + 1
+    if (time >= 24) break
+
+    # finding current hour
+    current_hour <- floor(time)
+
+    # finding actual lambda for associated hour
+    lambda <- arrival_rates %>%
+      filter(hour == current_hour) %>%
+      pull(mu_hat)
+
+    if (length(lambda) == 0 || is.na(lambda[1])) next
+    lambda <- lambda[1]
+
+    # thinning
+    if (runif(1) < lambdas / lambda_max) {
+        arrivals <- c(arrivals, time)
     }
-    if (length(arrivals) == 0) {
-      results[[i]] <- data.frame(
-        start_station = numeric(0),
-        end_station   = numeric(0),
-        time          = numeric(0)
-      )
-      next
-    }
-    results[[i]] <- data.frame(
-      start_station = as.numeric(start), 
-      end_station = as.numeric(end), 
-      time = as.numeric(arrivals)
-      )
   }
-  return(bind_rows(results))
+  # in case of no arrivals
+  if (length(arrivals == 0) return(NULL)
+
+  data.frame(start_station = arrival_rates$start_station[1],
+             end_station = end_rates$start_station[1],
+             time = arrivals)
 }
-
-set.seed(123)
-arrival_results <- simulate_demand(arrival_rates, 24)
-print(arrival_results)
-
 
 sim_trips_all <- function(arrival_rates) {
   set.seed(123)
