@@ -1,4 +1,6 @@
 # week-12-lab
-program that takes past usage data to estimate future bike placement
+
+Program that takes past demand data to optimize future bike placement.
+
 
 
