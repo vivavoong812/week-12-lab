@@ -1,10 +1,10 @@
 #' Simulating one day of trips for a single pair of start and end stations
 #'
-#' @description This function simulates arrival times for a single pair of start an end stations using non-homogeneous Poisson. 
+#' @description A function simulates arrival times for a single pair of start an end stations using non-homogeneous Poisson
 #'
-#' @param arrival rates A data frame with the columns: start_station, end_station, hour, and mu_hat.
+#' @param arrival rates A data frame with the columns: start_station, end_station, hour, and mu_hat
 #'
-#' @return a data frame with the columns: start_station, end_station, and time.
+#' @return a data frame with the columns: start_station, end_station, and time
 
 sim_trip_one <- function(arrival_rates) {
 
@@ -57,7 +57,7 @@ sim_trip_one <- function(arrival_rates) {
 
 #' Simulating one day of trips for all station trips
 #'
-#' @description This function takes the sim_trip_one function and applies it to all pairs of start and end station
+#' @description A function takes the sim_trip_one function and applies it to all pairs of start and end station
 #'
 #' @param arrival_rate A data frame with the columns: start_station, end_station, hour, and mu_hat
 #'
