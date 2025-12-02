@@ -11,3 +11,5 @@ test_df <- tibble(
                                  "2022-04-23 10:59:00")),
     user_type     = c("Subscriber", NA, NA, "Subscriber")
   )
+
+estimate_arrival(test_df)
