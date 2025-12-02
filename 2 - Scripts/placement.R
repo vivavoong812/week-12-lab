@@ -48,6 +48,5 @@ opt_placement <- function(arrival_rates, total_bikes) {
   return(placement)
 }
 
-total_bikes <- 1000
 placement_results <- opt_placement(arrival_rates, total_bikes)
 placement_results
