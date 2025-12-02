@@ -12,4 +12,4 @@ test_df <- tibble(
     user_type     = c("Subscriber", NA, NA, "Subscriber")
   )
 
-estimate_arrival(test_df)
+estimate_arrival_rates(test_df)
