@@ -1,7 +1,10 @@
-# Solution:
-#' @description estimates the bike arrival rate for each station in a given dataframe
-#' @param data dataframe containing start_station, end_station, start_time, end_time, customer_type
-#' @output returns dataframe containing start_station, end_station, hour, avg_trips, avg_avail, and mu_hat
+#' Simulating arrival rates for each station
+#'
+#' @description A function that takes in past demand data to estimate the arrival rates for each pair of start and end stations
+#'
+#' @param data A data frame with the columns: start_station, end_station, start_time, end_time, and customer_type
+
+#' @return A data frame with the columsn: start_station, end_station, hour, avg_trips, avg_avail, and mu_hat
 
 estimate_arrival_rates <- function(data) {
   data <- data %>%
