@@ -3,7 +3,7 @@
 Program that takes past demand data to optimize future bike placement.
 
 ## Data
-
+data <- read.csv("/path/sample_bike.csv")
 ## estimation.R
 
 ## simulation.R
